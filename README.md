@@ -4,8 +4,8 @@
 # 服务端：
 
 ```
-UserManager2.getDefault().setUserInfo(User("ming", 25))
-IPC.register(UserManager2::class.java)
+UserManager.getDefault().setUserInfo(User("ming", 25))
+FastIPC.register(UserManager::class.java)
 
 ```
 
@@ -16,12 +16,11 @@ IPC.register(UserManager2::class.java)
     android:name=".UserService"
     android:enabled="true"
     android:exported="true" />
-<service
-    android:name="com.lay.ipc.service.IPCService01"
-    android:enabled="true"
-    android:exported="true">
+<service android:name="com.lay.fastipc.service.FastIPCService01"
+    android:exported="true"
+    android:enabled="true">
     <intent-filter>
-        <action android:name="android.intent.action.GET_USER_INFO" />
+        <action android:name="android.intent.action.GET_USER_INFO"/>
     </intent-filter>
 </service>
 ```
@@ -29,15 +28,15 @@ IPC.register(UserManager2::class.java)
 
 调用connect方法，需要绑定服务端的服务，传入包名和action
 ```
-IPC.connect(
+FastIPC.connect(
     this,
-    "com.lay.learn.asm",
+    "com.lay.fastipcdemo",
     "android.intent.action.GET_USER_INFO",
     IPCService01::class.java
 )
 ```
 
-首先获取IUserManager的实例，注意这里要和服务端注册的UserManager2是同一个ServiceId，而且接口、javabean需要存放在与服务端一样的文件夹下。
+首先获取IUserManager的实例，注意这里要和服务端注册的UserManager2是同一个ServiceId，而且**接口、javabean需要存放在与服务端一样的文件夹下，详情见demo**。
 ```
 val userManager = IPC.getInstanceWithName(
     IPCService01::class.java,
