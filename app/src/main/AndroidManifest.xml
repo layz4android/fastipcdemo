@@ -13,6 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fastipcdemo"
         tools:targetApi="31">
+        <service
+            android:name=".UserService"
+            android:enabled="true"
+            android:exported="true" />
+        <service android:name="com.lay.fastipc.service.FastIPCService01"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.GET_USER_INFO"/>
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
